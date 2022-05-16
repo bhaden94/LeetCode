@@ -1,9 +1,16 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
-        int firstIdx = -1, lastIdx = -1;
+        int[] res = new int[2];
         
-        // first first occurance
+        res[0] = findFirst(nums, target);
+        res[1] = findLast(nums, target);
+        
+        return res;
+    }
+    
+    private static int findFirst(int[] nums, int target) {
+        int left = 0, right = nums.length - 1, firstIdx = -1;
+        
         while (left <= right) {
             int mid = left + (right - left) / 2;
             
@@ -17,9 +24,12 @@ class Solution {
             }
         }
         
-        left = 0;
-        right = nums.length - 1;
-        // find last occurance
+        return firstIdx;
+    }
+    
+    private static int findLast(int[] nums, int target) {
+         int left = 0, right = nums.length - 1, lastIdx = -1;
+        
         while (left <= right) {
             int mid = left + (right - left) / 2;
             
@@ -33,6 +43,6 @@ class Solution {
             }
         }
         
-        return new int[]{firstIdx, lastIdx};
+        return lastIdx;
     }
 }
