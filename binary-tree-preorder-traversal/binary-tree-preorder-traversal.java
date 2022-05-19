@@ -21,7 +21,7 @@ class Solution {
         
         stack.push(root);
         
-        while (stack.empty() == false) {
+        while (!stack.empty()) {
             TreeNode curr = stack.pop();
             tree.add(curr.val);
             
