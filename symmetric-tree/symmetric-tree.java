@@ -45,15 +45,12 @@ class Solution {
             
             if (left == null && right == null) continue;
             
-            // if one null
-            if (left == null && right != null ||
-               left != null && right == null) {
+            if ((left == null && right != null) ||
+               (left != null && right == null) ||
+               (left.val != right.val)) {
                 return false;
             }
-                
-            // if don't equal
-            if (left.val != right.val) return false;
-            
+                            
             // add to queue
             q.add(left.left);
             q.add(right.right);
