@@ -25,5 +25,3 @@ class Solution {
         return head;
     }
 }
-
-// 1 - 1
