@@ -1,5 +1,10 @@
 class Solution {
     public int searchInsert(int[] nums, int target) {
+        if (target > nums[nums.length - 1])
+            return nums.length;
+        if (target < nums[0])
+            return 0;
+        
         int left = 0, right = nums.length - 1;
         int mid = left + (right - left) / 2;
         
@@ -14,10 +19,6 @@ class Solution {
             
             mid = left + (right - left) / 2;
         }
-        
-        int length = nums.length - 1;
-        if (mid == length && target > nums[length])
-            return mid + 1;
         
         return mid;
     }
