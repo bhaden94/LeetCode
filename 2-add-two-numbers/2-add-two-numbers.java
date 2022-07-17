@@ -16,24 +16,24 @@ class Solution {
         ListNode l3Start = l3;
         int carry = 0;
         
-        while (l1Walker != null && l2Walker != null) {
-            int sum = l2Walker.val + l1Walker.val + carry;
+        while (l1 != null && l2Walker != null) {
+            int sum = l2Walker.val + l1.val + carry;
             int right = sum % 10;
             carry = sum / 10;
             l3.next = new ListNode(right);
             l3 = l3.next;
             l2Walker = l2Walker.next;
-            l1Walker = l1Walker.next;
+            l1 = l1.next;
         }
         
-        while (l1Walker != null || l2Walker != null) {
+        while (l1 != null || l2Walker != null) {
             int sum;
-            if (l1Walker == null) {
+            if (l1 == null) {
                 sum = l2Walker.val + carry;
                 l2Walker = l2Walker.next;
             } else {
-                sum = l1Walker.val + carry;
-                l1Walker = l1Walker.next;
+                sum = l1.val + carry;
+                l1 = l1.next;
             }
             int right = sum % 10;
             carry = sum / 10;
