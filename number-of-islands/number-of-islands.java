@@ -1,53 +1,42 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        // queue for BFS
+        // [row,col]
         Queue<Integer[]> q = new LinkedList<>();
-        // keep track of islands
         int islands = 0;
         
-        // loop through entire grid
-        //   check if x,y is 1
-        //     if is then change to zero
-        //     increment islands
-        //     add x,y to queue
-        //   while (queue is not empty)
-        //     dequeue
-        //     check surrounding nodes
-        //       if 1
-        //         change to 0
-        //         add current x,y to queue
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col < grid[row].length; col++) {
-                if (grid[row][col] == '1') {
-                    grid[row][col] = '0';
-                    islands++;
-                    q.add(new Integer[]{row, col});
-                }
+        for (int row = 0; row<grid.length; row++) {
+            for (int col = 0; col<grid[row].length; col++) {
+                if (grid[row][col] == '0') continue;
                 
+                // if 1, find all surrounding ones
+                q.offer(new Integer[]{row,col});
+                grid[row][col] = '0';
+                islands++;
                 while (!q.isEmpty()) {
-                    Integer[] curr = q.poll();
-                    int r = curr[0];
-                    int c = curr[1];
-                    // r+1,c; r,c+1; r-1,c; r,c-1
-                    if (r + 1 < grid.length && grid[r+1][c] == '1') {
-                        grid[r+1][c] = '0';
-                        q.add(new Integer[]{r+1, c});
+                    Integer[] position = q.poll();
+                    int x = position[0];
+                    int y = position[1];
+                    // check surrounding
+                    if (x+1 < grid.length && grid[x+1][y] == '1') {
+                        grid[x+1][y] = '0';
+                        q.offer(new Integer[]{x+1,y});
                     }
-                    if (c + 1 < grid[r].length && grid[r][c+1] == '1') {
-                        grid[r][c+1] = '0';
-                        q.add(new Integer[]{r, c+1});
+                    if (x-1 >= 0 && grid[x-1][y] == '1') {
+                        grid[x-1][y] = '0';
+                        q.offer(new Integer[]{x-1,y});
                     }
-                    if (r - 1 >= 0 && grid[r-1][c] == '1') {
-                        grid[r-1][c] = '0';
-                        q.add(new Integer[]{r-1, c});
+                    if (y+1 < grid[x].length && grid[x][y+1] == '1') {
+                        grid[x][y+1] = '0';
+                        q.offer(new Integer[]{x,y+1});
                     }
-                    if (c - 1 >= 0 && grid[r][c-1] == '1') {
-                        grid[r][c-1] = '0';
-                        q.add(new Integer[]{r, c-1});
+                    if (y-1 >= 0 && grid[x][y-1] == '1') {
+                        grid[x][y-1] = '0';
+                        q.offer(new Integer[]{x,y-1});
                     }
                 }
             }
         }
+        
         return islands;
     }
 }
