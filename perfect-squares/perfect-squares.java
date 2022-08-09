@@ -1,43 +1,44 @@
 class Solution {
-    private ArrayList<Integer> fillSquaresList(int n) {
-        ArrayList<Integer> s = new ArrayList<>();
-        int curSquare = 1, count = 1;
-        while (curSquare <= n) {
-            s.add(curSquare);
+    private ArrayList<Integer> generatePerfectSquares(int n) {
+        ArrayList<Integer> squares = new ArrayList<>();
+        int square = 1, count = 1;
+        
+        while (square <= n) {
+            squares.add(square);
             count++;
-            curSquare = count * count;
+            square = count * count;
         }
         
-        return s;
+        return squares;
     }
     
     public int numSquares(int n) {
-        ArrayList<Integer> squares = fillSquaresList(n);
+        ArrayList<Integer> squares = generatePerfectSquares(n);
         Set<Integer> visited = new HashSet<>();
-        Queue<Integer> q = new LinkedList<>();
-        int level = 0;
+        Queue<Integer> results = new LinkedList<>();
+        int level = 1;
+        results.offer(n);
         
-        q.offer(n);
-        
-        while (!q.isEmpty()) {
-            level++;
-            int size = q.size();
-            while (size-- > 0) {
-                int num = q.poll();
+        while (!results.isEmpty()) {
+            int size = results.size();
+            while (size > 0) {
+                int currentResult = results.poll();
                 
-                for (int square : squares) {
-                    int remain = num - square;
+                for (int s : squares) {
+                    int remainder = currentResult - s;
                     
-                    if (remain == 0) {
-                        return level;   
-                    } else if (remain > 0 && !visited.contains(remain)) {
-                        visited.add(remain);
-                        q.offer(remain);
-                    } else if (remain < 0) {
-                        break;
+                    if (remainder == 0) {
+                        return level;
+                    } else if (remainder > 0 && !visited.contains(remainder)) {
+                        visited.add(remainder);
+                        results.offer(remainder);
                     }
                 }
+                
+                size--;
             }
+            
+            level++;
         }
         
         return level;
